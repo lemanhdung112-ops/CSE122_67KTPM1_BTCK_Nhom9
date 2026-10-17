@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f9f6">
+    <title>Yêu cầu của tôi — ReUseHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/reusehub-store.js" defer></script>
+    <script src="../js/marketplace.js" defer></script>
+</head>
+
+<body data-page="requests">
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="ReUseHub, về trang chủ">
+            <span class="brand-mark" aria-hidden="true">↻</span>
+            <span>ReUseHub</span>
+        </a>
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false"
+            aria-controls="primary-navigation" aria-label="Mở menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="primary-navigation" class="primary-navigation" aria-label="Điều hướng chính">
+            <a class="navigation-link" href="index.html">Tổng quan</a>
+            <a class="navigation-link" href="browse.html">Khám phá đồ</a>
+            <a class="navigation-link active" href="my-requests.html" aria-current="page">Yêu cầu của tôi</a>
+        </nav>
+        <a class="avatar-button avatar-link" href="index.html" aria-label="Về trang chủ">L</a>
+    </header>
+
+    <main class="page-content requests-page">
+        <section class="marketplace-hero requests-hero">
+            <div>
+                <p class="eyebrow">THEO DÕI CÁC KẾT NỐI CỦA BẠN</p>
+                <h1>Yêu cầu của tôi</h1>
+                <p>Xem trạng thái yêu cầu nhận đồ, trao đổi hoặc hỗ trợ sửa chữa.</p>
+            </div>
+            <a class="button button-primary" href="browse.html">Khám phá món đồ</a>
+        </section>
+
+        <div class="request-tabs" role="group" aria-label="Lọc yêu cầu">
+            <button class="request-tab active" type="button" aria-pressed="true" data-status="all">Tất cả</button>
+            <button class="request-tab" type="button" aria-pressed="false" data-status="pending">Đang chờ</button>
+            <button class="request-tab" type="button" aria-pressed="false" data-status="accepted">Đã chấp nhận</button>
+            <button class="request-tab" type="button" aria-pressed="false" data-status="cancelled">Đã hủy</button>
+        </div>
+
+        <section id="requests-list" class="requests-list" aria-label="Các yêu cầu đã gửi" aria-live="polite"></section>
+        <section id="requests-empty" class="empty-state empty-panel" hidden>
+            <span class="empty-icon" aria-hidden="true">♡</span>
+            <h2 id="requests-empty-title">Bạn chưa gửi yêu cầu nào</h2>
+            <p id="requests-empty-description">Khám phá món đồ trong cộng đồng để tìm thứ có thể dùng tiếp hoặc sửa chữa.</p>
+            <a class="button button-primary" href="browse.html">Khám phá món đồ</a>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <footer class="site-footer">
+        <a class="brand brand-footer" href="index.html"><span class="brand-mark" aria-hidden="true">↻</span><span>ReUseHub</span></a>
+        <p>Tái sử dụng hôm nay, gìn giữ ngày mai.</p>
+    </footer>
+</body>
+
+</html>

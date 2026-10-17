@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f9f6">
+    <title>Khám phá món đồ — ReUseHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/reusehub-store.js" defer></script>
+    <script src="../js/marketplace.js" defer></script>
+</head>
+
+<body data-page="browse">
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="ReUseHub, về trang chủ">
+            <span class="brand-mark" aria-hidden="true">↻</span>
+            <span>ReUseHub</span>
+        </a>
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false"
+            aria-controls="primary-navigation" aria-label="Mở menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="primary-navigation" class="primary-navigation" aria-label="Điều hướng chính">
+            <a class="navigation-link" href="index.html">Tổng quan</a>
+            <a class="navigation-link active" href="browse.html" aria-current="page">Khám phá đồ</a>
+            <a class="navigation-link" href="my-requests.html">Yêu cầu của tôi</a>
+        </nav>
+        <a class="avatar-button avatar-link" href="index.html" aria-label="Về trang chủ">L</a>
+    </header>
+
+    <main class="page-content marketplace-page">
+        <section class="marketplace-hero">
+            <div>
+                <p class="eyebrow">ĐỒ TỐT ĐANG TÌM CHỦ MỚI</p>
+                <h1>Khám phá món đồ</h1>
+                <p>Tìm món phù hợp, gửi yêu cầu và giúp đồ dùng tiếp tục được sử dụng trong cộng đồng trường.</p>
+            </div>
+            <a class="button button-secondary" href="my-requests.html">Yêu cầu của tôi</a>
+        </section>
+
+        <section class="browse-tools" aria-label="Tìm và lọc món đồ">
+            <label class="search-box" for="browse-search">
+                <span aria-hidden="true">⌕</span>
+                <input id="browse-search" type="search" placeholder="Tìm tên đồ, mô tả hoặc người đăng">
+            </label>
+            <label class="visually-hidden" for="browse-category">Lọc danh mục</label>
+            <select id="browse-category" class="category-select">
+                <option value="all">Tất cả danh mục</option>
+                <option value="Sách">Sách</option>
+                <option value="Điện tử">Điện tử</option>
+                <option value="Đồ gia dụng">Đồ gia dụng</option>
+                <option value="Khác">Khác</option>
+            </select>
+            <label class="visually-hidden" for="browse-method">Lọc phương án</label>
+            <select id="browse-method" class="category-select">
+                <option value="all">Mọi phương án</option>
+                <option value="Cho tặng">Cho tặng</option>
+                <option value="Trao đổi">Trao đổi</option>
+                <option value="Cần sửa chữa">Cần sửa chữa</option>
+            </select>
+            <label class="visually-hidden" for="browse-sort">Sắp xếp</label>
+            <select id="browse-sort" class="category-select">
+                <option value="newest">Mới đăng trước</option>
+                <option value="name">Tên A–Z</option>
+            </select>
+        </section>
+
+        <div class="browse-summary">
+            <p id="browse-count" aria-live="polite"></p>
+            <button id="reset-filters" class="text-button" type="button">Xóa bộ lọc</button>
+        </div>
+
+        <section id="browse-grid" class="products-grid browse-grid" aria-label="Món đồ đang chia sẻ"
+            aria-live="polite"></section>
+        <section id="browse-empty" class="empty-state empty-panel" hidden>
+            <span class="empty-icon" aria-hidden="true">⌕</span>
+            <h2>Chưa tìm thấy món phù hợp</h2>
+            <p>Thử bỏ bớt bộ lọc hoặc tìm bằng từ khóa khác nhé.</p>
+            <button class="button button-secondary" type="button" data-reset-filters>Làm mới bộ lọc</button>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <footer class="site-footer">
+        <a class="brand brand-footer" href="index.html"><span class="brand-mark" aria-hidden="true">↻</span><span>ReUseHub</span></a>
+        <p>Tái sử dụng hôm nay, gìn giữ ngày mai.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f9f6">
+    <title>Chi tiết món đồ — ReUseHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/reusehub-store.js" defer></script>
+    <script src="../js/marketplace.js" defer></script>
+</head>
+
+<body data-page="detail">
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="ReUseHub, về trang chủ">
+            <span class="brand-mark" aria-hidden="true">↻</span>
+            <span>ReUseHub</span>
+        </a>
+        <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false"
+            aria-controls="primary-navigation" aria-label="Mở menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="primary-navigation" class="primary-navigation" aria-label="Điều hướng chính">
+            <a class="navigation-link" href="index.html">Tổng quan</a>
+            <a class="navigation-link active" href="browse.html" aria-current="page">Khám phá đồ</a>
+            <a class="navigation-link" href="my-requests.html">Yêu cầu của tôi</a>
+        </nav>
+        <a class="avatar-button avatar-link" href="index.html" aria-label="Về trang chủ">L</a>
+    </header>
+
+    <main class="page-content detail-page">
+        <a class="back-link" href="browse.html"><span aria-hidden="true">←</span> Quay lại danh sách</a>
+        <section id="detail-content" class="detail-layout" aria-live="polite"></section>
+        <section id="detail-missing" class="empty-state empty-panel" hidden>
+            <span class="empty-icon" aria-hidden="true">⌁</span>
+            <h1>Không tìm thấy món đồ</h1>
+            <p>Món đồ có thể đã được chuyển trạng thái hoặc không còn tồn tại.</p>
+            <a class="button button-primary" href="browse.html">Khám phá món khác</a>
+        </section>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <footer class="site-footer">
+        <a class="brand brand-footer" href="index.html"><span class="brand-mark" aria-hidden="true">↻</span><span>ReUseHub</span></a>
+        <p>Tái sử dụng hôm nay, gìn giữ ngày mai.</p>
+    </footer>
+</body>
+
+</html>
