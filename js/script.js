@@ -265,46 +265,17 @@ function setupDashboard() {
     });
 }
 
-function login(event) {
-    event.preventDefault();
-    const email = document.getElementById("loginEmail")?.value.trim();
-    if (!email) {
-        return;
-    }
-    window.alert(`Đăng nhập thành công!\n\nEmail: ${email}`);
-    window.location.href = "index.html";
+function setupRolePicker() {
+    document.querySelectorAll("[data-demo-role]").forEach((link) => {
+        link.addEventListener("click", (event) => {
+            const result = store.setCurrentRole(link.dataset.demoRole);
+            if (!result.ok) {
+                event.preventDefault();
+                window.alert(result.reason);
+            }
+        });
+    });
 }
 
-function register(event) {
-    event.preventDefault();
-    const password = document.getElementById("registerPassword")?.value || "";
-    const confirm = document.getElementById("registerConfirm")?.value || "";
-
-    if (password !== confirm) {
-        window.alert("Mật khẩu xác nhận không trùng khớp!");
-        return;
-    }
-
-    window.alert("Đăng ký tài khoản thành công!");
-    window.location.href = "login.html";
-}
-
-function postProduct(event) {
-    event.preventDefault();
-    const name = document.getElementById("productName")?.value.trim();
-    if (!name) {
-        return;
-    }
-    window.alert(`Đăng sản phẩm thành công!\n\nSản phẩm: ${name}`);
-    window.location.href = "products.html";
-}
-
-function contactSeller() {
-    window.alert("Tính năng nhắn tin sẽ được phát triển ở phần Backend.");
-}
-
-window.login = login;
-window.register = register;
-window.postProduct = postProduct;
-window.contactSeller = contactSeller;
+setupRolePicker();
 setupDashboard();

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
-    <title>ReUseHub — Trang chủ</title>
+    <title>ReUseHub — Chọn vai trò</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/reusehub-store.js" defer></script>
     <script src="../js/script.js" defer></script>
@@ -17,164 +17,61 @@
             <span class="brand-mark" aria-hidden="true">↻</span>
             <span>ReUseHub</span>
         </a>
-
-        <button id="menu-toggle" class="menu-toggle" type="button" aria-expanded="false"
-            aria-controls="primary-navigation" aria-label="Mở menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-        <nav id="primary-navigation" class="primary-navigation" aria-label="Điều hướng chính">
-            <a class="navigation-link active" href="index.html" aria-current="page">Tổng quan</a>
-            <a class="navigation-link" href="browse.html">Khám phá đồ</a>
-            <a class="navigation-link" href="my-requests.html">Yêu cầu của tôi</a>
-            <a class="navigation-link" href="../owner/owner-my-items.html">Bảng điều khiển vai trò</a>
-            <a class="navigation-link" href="#impact">Tác động xanh</a>
-        </nav>
-
-        <button class="avatar-button" type="button" aria-label="Tài khoản của Linh">L</button>
     </header>
 
     <main class="page-content">
-        <section class="welcome-section" aria-labelledby="welcome-title">
-            <p id="today-label" class="date-label"></p>
-            <div class="welcome-row">
-                <div>
-                    <h1 id="welcome-title">Chào buổi sáng, Linh!</h1>
-                    <p class="welcome-description">
-                        Cùng xem những món đồ của bạn đang được trao thêm vòng đời như thế nào.
-                    </p>
-                </div>
-                <button class="button button-primary" type="button" data-open-listing>
-                    <span aria-hidden="true">＋</span> Đăng món đồ
-                </button>
+        <section class="marketplace-hero" aria-labelledby="welcome-title">
+            <div>
+                <p class="eyebrow">TÁI SỬ DỤNG HÔM NAY, GÌN GIỮ NGÀY MAI</p>
+                <h1 id="welcome-title">Chào mừng đến với ReUseHub</h1>
+                <p>Chọn vai trò demo để khám phá các luồng đăng đồ, tìm món phù hợp, tiếp nhận sửa chữa và kiểm duyệt.</p>
             </div>
         </section>
 
-        <section class="stats-grid" aria-label="Tổng quan hoạt động">
-            <article class="stat-card">
-                <div class="stat-icon icon-green" aria-hidden="true">↻</div>
-                <div>
-                    <p class="stat-label">Món đồ đang đăng</p>
-                    <p id="active-count" class="stat-value">0</p>
-                </div>
-                <span class="stat-note">Đang chia sẻ</span>
-            </article>
-            <article class="stat-card">
-                <div class="stat-icon icon-orange" aria-hidden="true">♡</div>
-                <div>
-                    <p class="stat-label">Đã trao tặng</p>
-                    <p id="donated-count" class="stat-value">0</p>
-                </div>
-                <span class="stat-note">Món đồ tìm được chủ mới</span>
-            </article>
-            <article class="stat-card">
-                <div class="stat-icon icon-blue" aria-hidden="true">⌛</div>
-                <div>
-                    <p class="stat-label">Yêu cầu đang chờ</p>
-                    <p id="request-count" class="stat-value">0</p>
-                </div>
-                <span class="stat-note">Cần bạn phản hồi</span>
-            </article>
-        </section>
-
-        <section id="shared-items" class="content-section" aria-labelledby="items-heading">
+        <section class="content-section" aria-labelledby="role-heading">
             <div class="section-heading">
                 <div>
-                    <p class="eyebrow">VÒNG ĐỜI MỚI BẮT ĐẦU TỪ BẠN</p>
-                    <h2 id="items-heading">Món đồ của bạn</h2>
+                    <p class="eyebrow">MÔ PHỎNG NHIỀU VAI TRÒ</p>
+                    <h2 id="role-heading">Bạn muốn tiếp tục với vai trò nào?</h2>
                 </div>
-                <button class="text-button" type="button" data-open-listing>＋ Đăng món mới</button>
             </div>
-
-            <div class="filter-row">
-                <label class="search-box" for="searchInput">
-                    <span aria-hidden="true">⌕</span>
-                    <input id="searchInput" type="search" placeholder="Tìm trong món đồ của bạn">
-                </label>
-                <label class="visually-hidden" for="categoryFilter">Lọc theo danh mục</label>
-                <select id="categoryFilter" class="category-select">
-                    <option value="all">Tất cả danh mục</option>
-                    <option value="Sách">Sách</option>
-                    <option value="Điện tử">Điện tử</option>
-                    <option value="Đồ gia dụng">Đồ gia dụng</option>
-                    <option value="Khác">Khác</option>
-                </select>
+            <div class="products-grid" aria-label="Chọn vai trò">
+                <a class="product-card" href="../owner/owner-my-items.html" data-demo-role="owner">
+                    <div class="product-art" aria-hidden="true">↻</div>
+                    <div class="product-info">
+                        <h3>Người có đồ</h3>
+                        <p class="product-description">Đăng món đồ, xem trạng thái tin và xử lý yêu cầu nhận đồ.</p>
+                        <span class="button button-primary card-action">Vào khu vực người có đồ</span>
+                    </div>
+                </a>
+                <a class="product-card" href="../receiver/receiver-item-browse.html" data-demo-role="receiver">
+                    <div class="product-art" aria-hidden="true">⌕</div>
+                    <div class="product-info">
+                        <h3>Người nhận</h3>
+                        <p class="product-description">Khám phá món đồ, gửi yêu cầu và theo dõi phản hồi.</p>
+                        <span class="button button-primary card-action">Vào khu vực người nhận</span>
+                    </div>
+                </a>
+                <a class="product-card" href="../partner/partner-intake-list.html" data-demo-role="partner">
+                    <div class="product-art" aria-hidden="true">⚒</div>
+                    <div class="product-info">
+                        <h3>Điểm sửa chữa / tái sử dụng</h3>
+                        <p class="product-description">Quản lý dịch vụ và cập nhật tiến độ tiếp nhận sửa chữa.</p>
+                        <span class="button button-primary card-action">Vào khu vực đối tác</span>
+                    </div>
+                </a>
+                <a class="product-card" href="../admin/admin-listing-moderation.html" data-demo-role="admin">
+                    <div class="product-art" aria-hidden="true">✓</div>
+                    <div class="product-info">
+                        <h3>Quản trị viên</h3>
+                        <p class="product-description">Kiểm duyệt tin đăng, quản lý danh mục và xem báo cáo.</p>
+                        <span class="button button-primary card-action">Vào khu vực quản trị</span>
+                    </div>
+                </a>
             </div>
-
-            <div id="products-grid" class="products-grid" aria-live="polite"></div>
-            <p id="items-empty" class="empty-state" hidden>
-                Chưa tìm thấy món đồ nào. Thử đổi từ khóa hoặc đăng món đồ đầu tiên nhé.
-            </p>
-        </section>
-
-        <section id="impact" class="impact-panel" aria-labelledby="impact-heading">
-            <div class="impact-symbol" aria-hidden="true">✳</div>
-            <div class="impact-copy">
-                <p class="eyebrow">MỖI MÓN ĐỒ ĐỀU TẠO NÊN KHÁC BIỆT</p>
-                <h2 id="impact-heading">Cảm ơn bạn đã chọn tái sử dụng!</h2>
-                <p>Cho đi, sửa chữa hay tìm một người chủ mới — mỗi lựa chọn đều giúp giảm lãng phí.</p>
-            </div>
-            <div class="impact-total">
-                <span id="impact-count">0</span>
-                <span>món đồ được tiếp tục sử dụng</span>
-            </div>
+            <p class="request-note">Đây là bộ chuyển vai trò demo, không phải đăng nhập hoặc phân quyền bảo mật thật.</p>
         </section>
     </main>
-
-    <dialog id="listing-dialog" class="listing-dialog" aria-labelledby="dialog-title">
-        <form id="listing-form" class="listing-form">
-            <div class="dialog-heading">
-                <div>
-                    <p class="eyebrow">CHIA SẺ ĐỂ ĐỒ DÙNG CÓ VÒNG ĐỜI MỚI</p>
-                    <h2 id="dialog-title">Đăng món đồ</h2>
-                </div>
-                <button class="icon-button" type="button" data-close-listing aria-label="Đóng">×</button>
-            </div>
-
-            <label for="productName">Tên món đồ</label>
-            <input id="productName" name="name" type="text" maxlength="70" placeholder="Ví dụ: Giáo trình Lập trình C++"
-                required>
-
-            <label for="productCategory">Danh mục</label>
-            <select id="productCategory" name="category" required>
-                <option value="">Chọn danh mục</option>
-                <option value="Sách">Sách</option>
-                <option value="Điện tử">Điện tử</option>
-                <option value="Đồ gia dụng">Đồ gia dụng</option>
-                <option value="Khác">Khác</option>
-            </select>
-
-            <label for="productCondition">Tình trạng</label>
-            <select id="productCondition" name="condition" required>
-                <option value="">Chọn tình trạng</option>
-                <option value="Còn tốt">Còn tốt</option>
-                <option value="Đã qua sử dụng">Đã qua sử dụng</option>
-                <option value="Cần sửa chữa">Cần sửa chữa</option>
-            </select>
-
-            <label for="productMethod">Phương án</label>
-            <select id="productMethod" name="method" required>
-                <option value="">Bạn muốn xử lý món đồ thế nào?</option>
-                <option value="Cho tặng">Cho tặng</option>
-                <option value="Trao đổi">Trao đổi</option>
-                <option value="Cần sửa chữa">Tìm nơi sửa chữa</option>
-            </select>
-
-            <label for="productDescription">Mô tả ngắn <span>(không bắt buộc)</span></label>
-            <textarea id="productDescription" name="description" rows="3" maxlength="240"
-                placeholder="Mô tả tình trạng hoặc lưu ý cho người nhận"></textarea>
-
-            <p id="listing-error" class="form-message" role="alert"></p>
-            <div class="dialog-actions">
-                <button class="button button-secondary" type="button" data-close-listing>Hủy</button>
-                <button class="button button-primary" type="submit">Đăng món đồ</button>
-            </div>
-        </form>
-    </dialog>
-
-    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <footer class="site-footer">
         <a class="brand brand-footer" href="index.html">
