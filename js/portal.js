@@ -827,17 +827,24 @@
     async function generateDescription(button) {
         const name = document.getElementById("item-name").value.trim();
         const keywords = document.getElementById("item-keywords").value.trim();
+        const category = document.getElementById("item-category").value;
+        const condition = document.getElementById("item-condition").value;
+        const method = document.getElementById("item-method").value;
         const result = document.getElementById("ai-description-result");
-        if (!name || !keywords) {
-            result.replaceChildren(node("p", "portal-error", "Hãy nhập tên món đồ và một vài từ khóa trước khi tạo mô tả."));
+        const keywordWords = keywords.split(/\s+/).filter(Boolean);
+        if (!name || !category || !condition || keywordWords.length < 3) {
+            result.replaceChildren(node("p", "portal-error",
+                "Chưa đủ thông tin: hãy nhập tên, chọn danh mục và tình trạng, đồng thời cung cấp ít nhất 3 từ khóa."));
             return;
         }
         await showLoading(button, result, "Đang tạo mô tả gợi ý...");
-        if (Math.random() < 0.15) {
-            result.replaceChildren(node("p", "portal-error", "Chưa thể tạo mô tả lần này. Hãy thử lại hoặc viết mô tả thủ công."));
-            return;
-        }
-        state.aiDescription = `${name} ${keywords}. Món đồ đã qua sử dụng, thông tin tình trạng được người đăng cung cấp để người nhận cân nhắc trước khi gửi yêu cầu.`;
+        const keywordSentence = `${keywordWords.join(" ")}.`;
+        const capitalizedKeywordSentence = keywordSentence.charAt(0).toLocaleUpperCase("vi")
+            + keywordSentence.slice(1);
+        const methodSentence = method ? ` Phương án mong muốn: ${method.toLocaleLowerCase("vi")}.` : "";
+        state.aiDescription = `${name} thuộc danh mục ${category.toLocaleLowerCase("vi")}. `
+            + `Món đồ hiện ${condition.toLocaleLowerCase("vi")}. `
+            + `${capitalizedKeywordSentence}${methodSentence}`;
         const panel = node("div", "portal-ai-result");
         panel.append(node("strong", "", "Mô tả đề xuất (bạn cần kiểm tra):"));
         panel.append(node("p", "", state.aiDescription));
