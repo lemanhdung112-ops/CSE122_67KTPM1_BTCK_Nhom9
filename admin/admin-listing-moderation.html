@@ -5,10 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Kiểm duyệt tin — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="admin-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="admin-listing-moderation"><div id="portal-root"></div></body>
+<body data-page="admin-listing-moderation">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <p class="portal-help">Chỉ tin ở trạng thái chờ mới được duyệt. Tin được duyệt sẽ xuất hiện trong Khám phá đồ; tin từ chối giữ lại cùng lý do để người đăng biết.</p>
+                <div id="moderation-list" class="portal-list"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

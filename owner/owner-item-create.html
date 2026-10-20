@@ -5,10 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Đăng món đồ — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="owner-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="owner-item-create"><div id="portal-root"></div></body>
+<body data-page="owner-item-create">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <h2>Thông tin món đồ</h2>
+                <form id="listing-form" class="portal-form" data-form="listing">
+                    <div class="portal-field">
+                        <label for="item-name">Tên món đồ *</label>
+                        <input id="item-name" name="name" maxlength="70" required placeholder="Ví dụ: Giáo trình Cơ sở dữ liệu">
+                    </div>
+                    <div class="portal-field">
+                        <label for="item-category">Danh mục *</label>
+                        <select id="item-category" name="category" required></select>
+                    </div>
+                    <div class="portal-field">
+                        <label for="item-condition">Tình trạng *</label>
+                        <select id="item-condition" name="condition" required>
+                            <option value="">Chọn tình trạng</option>
+                            <option>Còn tốt</option>
+                            <option>Đã qua sử dụng</option>
+                            <option>Cần sửa chữa</option>
+                        </select>
+                    </div>
+                    <div class="portal-field">
+                        <label for="item-method">Phương án *</label>
+                        <select id="item-method" name="method" required>
+                            <option value="">Chọn phương án</option>
+                            <option>Cho tặng</option>
+                            <option>Trao đổi</option>
+                            <option>Cần sửa chữa</option>
+                        </select>
+                    </div>
+                    <div class="portal-field portal-field-wide">
+                        <label for="item-keywords">Từ khóa mô tả gợi ý</label>
+                        <input id="item-keywords" name="keywords" maxlength="120" placeholder="Ví dụ: bìa đẹp, không ghi chú, dùng tốt">
+                    </div>
+                    <div class="portal-field portal-field-wide">
+                        <label for="item-description">Mô tả *</label>
+                        <textarea id="item-description" name="description" maxlength="300" required placeholder="Mô tả tình trạng và lưu ý cho người nhận"></textarea>
+                    </div>
+                    <div class="portal-field portal-field-wide">
+                        <div class="portal-actions">
+                            <button class="portal-action-button" type="button" data-action="ai-describe">Tạo mô tả gợi ý</button>
+                            <button class="portal-action-button primary" type="submit">Gửi kiểm duyệt</button>
+                        </div>
+                        <p class="portal-help">Tin mới sẽ ở trạng thái chờ kiểm duyệt. Bạn có thể sửa nội dung trước khi gửi.</p>
+                        <div id="ai-description-result" aria-live="polite"></div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

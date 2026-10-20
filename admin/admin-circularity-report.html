@@ -5,10 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Báo cáo tuần hoàn — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="admin-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="admin-circularity-report"><div id="portal-root"></div></body>
+<body data-page="admin-circularity-report">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-stats" id="report-stats"></section>
+            <section class="portal-section">
+                <h2>Tin theo trạng thái</h2>
+                <div id="report-listings"></div>
+            </section>
+            <section class="portal-section">
+                <h2>Yêu cầu theo trạng thái</h2>
+                <div id="report-requests"></div>
+            </section>
+            <section class="portal-section">
+                <h2>Danh mục phổ biến</h2>
+                <div id="report-categories"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

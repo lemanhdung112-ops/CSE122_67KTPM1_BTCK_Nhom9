@@ -5,10 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Phương án xử lý — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="owner-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="owner-reuse-options"><div id="portal-root"></div></body>
+<body data-page="owner-reuse-options">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <h2>Thông tin cần cân nhắc</h2>
+                <form id="advice-form" class="portal-form">
+                    <div class="portal-field">
+                        <label for="advice-name">Tên món đồ *</label>
+                        <input id="advice-name" required maxlength="70" placeholder="Ví dụ: Đèn bàn học">
+                    </div>
+                    <div class="portal-field">
+                        <label for="advice-category">Danh mục</label>
+                        <select id="advice-category"></select>
+                    </div>
+                    <div class="portal-field">
+                        <label for="advice-condition">Tình trạng *</label>
+                        <select id="advice-condition" required>
+                            <option value="">Chọn tình trạng</option>
+                            <option>Còn tốt</option>
+                            <option>Đã qua sử dụng</option>
+                            <option>Cần sửa chữa</option>
+                        </select>
+                    </div>
+                    <div class="portal-field">
+                        <label for="advice-notes">Ghi chú</label>
+                        <input id="advice-notes" maxlength="140" placeholder="Mô tả lỗi hoặc phần còn sử dụng được">
+                    </div>
+                    <div class="portal-field-wide">
+                        <button class="portal-action-button primary" type="button" data-action="ai-advisor">Nhận gợi ý phương án</button>
+                        <div id="ai-advisor-result" aria-live="polite"></div>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

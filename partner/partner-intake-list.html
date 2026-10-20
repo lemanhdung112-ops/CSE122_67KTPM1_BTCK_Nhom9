@@ -5,10 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Danh sách tiếp nhận — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="partner-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="partner-intake-list"><div id="portal-root"></div></body>
+<body data-page="partner-intake-list">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <div class="portal-actions">
+                    <button class="portal-action-button" type="button" data-action="ai-partner-match">Gợi ý ghép ca sửa chữa</button>
+                    <span class="portal-help">Gợi ý dựa trên danh mục dịch vụ đang hoạt động.</span>
+                </div>
+                <div id="partner-match-result" aria-live="polite"></div>
+                <div id="intake-list" class="portal-list"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

@@ -50,10 +50,20 @@
     }
 
     const screen = screens.find((entry) => entry.id === pageId);
+    const roleViews = window.ReUseHubRoleViews?.[screen.id.split("-")[0]];
+    if (!roleViews) {
+        console.error(`Không tìm thấy phần hiển thị cho vai trò của màn hình ${pageId}.`);
+        return;
+    }
+    const roleResult = store.setCurrentRole(screen.id.split("-")[0]);
+    if (!roleResult.ok) {
+        console.error("Không thể chọn vai trò cho màn hình này:", roleResult.reason);
+    }
     document.title = `${screen.label} — ReUseHub`;
     document.body.classList.add("portal-body");
     buildShell();
-    buildScreen();
+    populateCategorySelects();
+    wireEvents();
     renderScreen();
 
     function node(tag, className, text) {
@@ -106,6 +116,7 @@
     }
 
     function buildShell() {
+        const content = document.getElementById("portal-content");
         root.replaceChildren();
         const header = node("header", "portal-header");
         const brand = node("a", "brand");
@@ -166,8 +177,6 @@
         headingCopy.append(node("h1", "", screen.label));
         headingCopy.append(node("p", "", descriptions[pageId]));
         heading.append(headingCopy);
-        const content = node("div");
-        content.id = "portal-content";
         main.append(heading, content);
         layout.append(sidebar, main);
 
@@ -189,62 +198,6 @@
             }
             window.location.href = roleHome[roleSelect.value];
         });
-    }
-
-    function buildScreen() {
-        const content = document.getElementById("portal-content");
-        const templates = {
-            "owner-item-create": `
-                <section class="portal-section">
-                    <h2>Thông tin món đồ</h2>
-                    <form id="listing-form" class="portal-form" data-form="listing">
-                        <div class="portal-field"><label for="item-name">Tên món đồ *</label><input id="item-name" name="name" maxlength="70" required placeholder="Ví dụ: Giáo trình Cơ sở dữ liệu"></div>
-                        <div class="portal-field"><label for="item-category">Danh mục *</label><select id="item-category" name="category" required></select></div>
-                        <div class="portal-field"><label for="item-condition">Tình trạng *</label><select id="item-condition" name="condition" required><option value="">Chọn tình trạng</option><option>Còn tốt</option><option>Đã qua sử dụng</option><option>Cần sửa chữa</option></select></div>
-                        <div class="portal-field"><label for="item-method">Phương án *</label><select id="item-method" name="method" required><option value="">Chọn phương án</option><option>Cho tặng</option><option>Trao đổi</option><option>Cần sửa chữa</option></select></div>
-                        <div class="portal-field portal-field-wide"><label for="item-keywords">Từ khóa mô tả AI</label><input id="item-keywords" name="keywords" maxlength="120" placeholder="Ví dụ: bìa đẹp, không ghi chú, dùng tốt"></div>
-                        <div class="portal-field portal-field-wide"><label for="item-description">Mô tả *</label><textarea id="item-description" name="description" maxlength="300" required placeholder="Mô tả tình trạng và lưu ý cho người nhận"></textarea></div>
-                        <div class="portal-field portal-field-wide"><div class="portal-actions"><button class="portal-action-button" type="button" data-action="ai-describe">Tạo mô tả gợi ý</button><button class="portal-action-button primary" type="submit">Gửi kiểm duyệt</button></div><p class="portal-help">Tin mới sẽ ở trạng thái chờ kiểm duyệt. Bạn có thể sửa nội dung trước khi gửi.</p><div id="ai-description-result" aria-live="polite"></div></div>
-                    </form>
-                </section>`,
-            "owner-my-items": `
-                <section class="portal-stats" id="owner-stats"></section>
-                <section class="portal-section"><h2>Tin của tôi</h2><div id="owner-listings" class="portal-list"></div></section>
-                <section class="portal-section"><h2>Yêu cầu gửi đến</h2><p class="portal-help">Yêu cầu nhận đồ có thể được chấp nhận hoặc từ chối. Khi chấp nhận một yêu cầu, các yêu cầu đang chờ khác cho cùng món sẽ bị từ chối.</p><div id="owner-requests" class="portal-list"></div></section>
-                <dialog id="edit-listing-dialog" class="portal-dialog"><form id="edit-listing-form" class="portal-form" data-form="edit-listing"><h2 class="portal-field-wide">Sửa tin đăng</h2><input type="hidden" name="id"><div class="portal-field portal-field-wide"><label for="edit-name">Tên món đồ</label><input id="edit-name" name="name" required maxlength="70"></div><div class="portal-field portal-field-wide"><label for="edit-description">Mô tả</label><textarea id="edit-description" name="description" maxlength="300" required></textarea></div><div class="portal-field-wide portal-actions"><button class="portal-action-button primary" type="submit">Lưu thay đổi</button><button class="portal-action-button" type="button" data-action="close-dialog">Đóng</button></div></form></dialog>`,
-            "owner-reuse-options": `
-                <section class="portal-section"><h2>Thông tin cần cân nhắc</h2><form id="advice-form" class="portal-form">
-                    <div class="portal-field"><label for="advice-name">Tên món đồ *</label><input id="advice-name" required maxlength="70" placeholder="Ví dụ: Đèn bàn học"></div>
-                    <div class="portal-field"><label for="advice-category">Danh mục</label><select id="advice-category"></select></div>
-                    <div class="portal-field"><label for="advice-condition">Tình trạng *</label><select id="advice-condition" required><option value="">Chọn tình trạng</option><option>Còn tốt</option><option>Đã qua sử dụng</option><option>Cần sửa chữa</option></select></div>
-                    <div class="portal-field"><label for="advice-notes">Ghi chú</label><input id="advice-notes" maxlength="140" placeholder="Mô tả lỗi hoặc phần còn sử dụng được"></div>
-                    <div class="portal-field-wide"><button class="portal-action-button primary" type="button" data-action="ai-advisor">Nhận gợi ý phương án</button><div id="ai-advisor-result" aria-live="polite"></div></div>
-                </form></section>`,
-            "receiver-item-browse": `
-                <section class="portal-section"><div class="portal-toolbar"><input id="browse-search" class="portal-control" type="search" placeholder="Tìm tên, mô tả, người đăng"><select id="browse-category" class="portal-control"></select><select id="browse-method" class="portal-control"><option value="all">Mọi phương án</option><option>Cho tặng</option><option>Trao đổi</option><option>Cần sửa chữa</option></select></div>
-                    <div class="portal-actions"><button class="portal-action-button primary" type="button" data-action="ai-match">AI gợi ý món phù hợp</button><span id="browse-count" class="portal-help" aria-live="polite"></span></div><div id="ai-match-result" aria-live="polite"></div><div id="browse-list" class="portal-list"></div></section>`,
-            "receiver-item-detail": `
-                <section class="portal-section"><div class="portal-field"><label for="detail-item-select">Chọn món đồ</label><select id="detail-item-select" class="portal-control"></select></div><div id="detail-panel"></div></section>`,
-            "receiver-my-requests": `
-                <section class="portal-section"><div class="portal-field"><label for="request-status-filter">Lọc trạng thái</label><select id="request-status-filter" class="portal-control"><option value="all">Tất cả yêu cầu</option><option value="pending">Đang chờ</option><option value="accepted">Đã chấp nhận</option><option value="rejected">Bị từ chối</option><option value="cancelled">Đã hủy</option><option value="in_progress">Đang xử lý</option><option value="completed">Hoàn tất</option></select></div><div id="my-request-list" class="portal-list"></div></section>`,
-            "partner-service-management": `
-                <section class="portal-section"><h2>Thêm dịch vụ</h2><form id="service-form" class="portal-form" data-form="service"><div class="portal-field"><label for="service-name">Tên dịch vụ *</label><input id="service-name" name="name" required maxlength="70"></div><div class="portal-field"><label for="service-category">Danh mục</label><select id="service-category"></select></div><div class="portal-field"><label for="service-location">Địa điểm *</label><input id="service-location" name="location" required maxlength="100"></div><div class="portal-field"><label for="service-description">Mô tả</label><input id="service-description" name="description" maxlength="180"></div><div class="portal-field-wide"><button class="portal-action-button primary" type="submit">Thêm dịch vụ</button></div></form></section>
-                <section class="portal-section"><h2>Dịch vụ đang quản lý</h2><div id="service-list" class="portal-list"></div></section>`,
-            "partner-intake-list": `
-                <section class="portal-section"><div class="portal-actions"><button class="portal-action-button" type="button" data-action="ai-partner-match">AI ghép ca sửa chữa</button><span class="portal-help">Gợi ý dựa trên danh mục dịch vụ đang hoạt động.</span></div><div id="partner-match-result" aria-live="polite"></div><div id="intake-list" class="portal-list"></div></section>`,
-            "partner-impact-dashboard": `
-                <section class="portal-stats" id="partner-stats"></section><section class="portal-section"><h2>Tiến độ tiếp nhận</h2><div id="partner-progress"></div></section><section class="portal-section"><h2>Ca đã xử lý gần đây</h2><div id="partner-completed" class="portal-list"></div></section>`,
-            "admin-category-management": `
-                <section class="portal-section"><h2>Thêm danh mục</h2><form id="category-form" class="portal-form" data-form="category"><div class="portal-field"><label for="category-name">Tên danh mục *</label><input id="category-name" name="name" required maxlength="40" placeholder="Ví dụ: Đồ học tập"></div><div class="portal-field"><label for="category-description">Ghi chú</label><input id="category-description" name="description" maxlength="100"></div><div class="portal-field-wide"><button class="portal-action-button primary" type="submit">Thêm danh mục</button></div></form></section><section class="portal-section"><h2>Danh mục hiện có</h2><div id="category-list" class="portal-list"></div></section>`,
-            "admin-listing-moderation": `
-                <section class="portal-section"><p class="portal-help">Chỉ tin ở trạng thái chờ mới được duyệt. Tin được duyệt sẽ xuất hiện trong Khám phá đồ; tin từ chối giữ lại cùng lý do để người đăng biết.</p><div id="moderation-list" class="portal-list"></div></section>`,
-            "admin-circularity-report": `
-                <section class="portal-stats" id="report-stats"></section><section class="portal-section"><h2>Tin theo trạng thái</h2><div id="report-listings"></div></section><section class="portal-section"><h2>Yêu cầu theo trạng thái</h2><div id="report-requests"></div></section><section class="portal-section"><h2>Danh mục phổ biến</h2><div id="report-categories"></div></section>`
-        };
-        // Các mẫu HTML cố định; dữ liệu người dùng được chèn riêng bằng textContent.
-        content.innerHTML = templates[pageId];
-        populateCategorySelects();
-        wireEvents();
     }
 
     function populateCategorySelects() {
@@ -269,6 +222,12 @@
         document.addEventListener("submit", handleSubmit);
         document.addEventListener("input", handleBrowseChange);
         document.addEventListener("change", handleBrowseChange);
+    }
+
+    function handleBrowseChange(event) {
+        if (screen.id.startsWith("receiver-")) {
+            roleViews.handleChange(viewContext(), event);
+        }
     }
 
     function card(main, actions) {
@@ -326,80 +285,43 @@
     function renderScreen() {
         const listings = store.getListings();
         const requests = store.getRequests();
+        const context = viewContext();
         switch (pageId) {
             case "owner-item-create":
                 break;
             case "owner-my-items":
-                renderOwnerItems(listings, requests);
+                roleViews.renderItems(context, listings, requests);
                 break;
             case "owner-reuse-options":
                 break;
             case "receiver-item-browse":
-                renderBrowse(listings);
+                roleViews.renderBrowse(context, listings);
                 break;
             case "receiver-item-detail":
-                renderDetail(listings);
+                roleViews.renderDetail(context, listings);
                 break;
             case "receiver-my-requests":
-                renderMyRequests(requests);
+                roleViews.renderRequests(context, requests);
                 break;
             case "partner-service-management":
-                renderServices();
+                roleViews.renderServices(context);
                 break;
             case "partner-intake-list":
-                renderIntake(requests);
+                roleViews.renderIntake(context, requests);
                 break;
             case "partner-impact-dashboard":
-                renderPartnerImpact(requests);
+                roleViews.renderImpact(context, requests);
                 break;
             case "admin-category-management":
-                renderCategories();
+                roleViews.renderCategories(context);
                 break;
             case "admin-listing-moderation":
-                renderModeration(listings);
+                roleViews.renderModeration(context, listings);
                 break;
             case "admin-circularity-report":
-                renderReport(listings, requests);
+                roleViews.renderReport(context, listings, requests);
                 break;
         }
-    }
-
-    function renderOwnerItems(listings, requests) {
-        const user = store.currentUser;
-        const ownListings = listings.filter((entry) => entry.ownerId === user.id);
-        const active = ownListings.filter((entry) => ["active", "repair", "reserved"].includes(entry.status)).length;
-        const pending = requests.filter((entry) => entry.ownerId === user.id && entry.status === "pending").length;
-        const stats = document.getElementById("owner-stats");
-        stats.replaceChildren(
-            statBox("Tin đang hoạt động", active),
-            statBox("Chờ kiểm duyệt", ownListings.filter((entry) => entry.status === "pending").length),
-            statBox("Yêu cầu chờ xử lý", pending),
-            statBox("Đã hoàn tất", ownListings.filter((entry) => ["donated", "completed"].includes(entry.status)).length)
-        );
-
-        const listingHost = document.getElementById("owner-listings");
-        listingHost.replaceChildren();
-        if (!ownListings.length) listingHost.append(empty("Bạn chưa có món đồ nào. Hãy đăng món đầu tiên."));
-        ownListings.forEach((listing) => {
-            const actions = [];
-            if (listing.status !== "archived" && listing.status !== "donated") {
-                actions.push(actionButton("Sửa", "edit-listing", listing.id));
-                actions.push(actionButton("Lưu trữ", "archive-listing", listing.id, "danger"));
-            }
-            const listingCard = makeListingCard(listing);
-            const actionArea = node("div", "portal-card-actions");
-            actionArea.append(...actions);
-            listingCard.append(actionArea);
-            listingHost.append(listingCard);
-        });
-
-        const requestHost = document.getElementById("owner-requests");
-        requestHost.replaceChildren();
-        const incoming = requests.filter((entry) =>
-            entry.ownerId === user.id && entry.method !== "Cần sửa chữa"
-        );
-        if (!incoming.length) requestHost.append(empty("Chưa có yêu cầu nhận đồ gửi đến."));
-        incoming.forEach((request) => requestHost.append(makeRequestCard(request, "owner")));
     }
 
     function statBox(label, value) {
@@ -412,253 +334,20 @@
         return node("p", "portal-empty", message);
     }
 
-    function renderBrowse(listings) {
-        const host = document.getElementById("browse-list");
-        const roleUser = store.currentUser;
-        const keyword = normalize(document.getElementById("browse-search").value);
-        const category = document.getElementById("browse-category").value;
-        const method = document.getElementById("browse-method").value;
-        const visible = listings.filter((listing) => {
-            const text = normalize(`${listing.name} ${listing.description} ${listing.ownerName} ${listing.location}`);
-            return listing.ownerId !== roleUser.id
-                && ["active", "repair"].includes(listing.status)
-                && text.includes(keyword)
-                && (category === "all" || listing.category === category)
-                && (method === "all" || listing.method === method);
-        });
-        host.replaceChildren();
-        document.getElementById("browse-count").textContent = `${visible.length} món phù hợp`;
-        if (!visible.length) host.append(empty("Không tìm thấy món phù hợp. Hãy thử bỏ bớt bộ lọc."));
-        visible.forEach((listing) => {
-            const result = makeListingCard(listing, true);
-            const action = actionButton("Xem chi tiết", "show-detail", listing.id, "primary");
-            result.querySelector(".portal-card-actions")?.remove();
-            const area = node("div", "portal-card-actions");
-            area.append(action);
-            result.append(area);
-            host.append(result);
-        });
-    }
-
-    function renderDetail(listings) {
-        const available = listings.filter((entry) =>
-            entry.ownerId !== store.currentUser.id && ["active", "repair"].includes(entry.status)
-        );
-        const select = document.getElementById("detail-item-select");
-        const existing = state.detailId || select.value;
-        select.replaceChildren();
-        const placeholder = node("option", "", available.length ? "Chọn món đồ" : "Không có món đang nhận yêu cầu");
-        placeholder.value = "";
-        select.append(placeholder);
-        available.forEach((listing) => {
-            const option = node("option", "", `${listing.name} — ${listing.ownerName}`);
-            option.value = listing.id;
-            select.append(option);
-        });
-        if (available.some((entry) => entry.id === existing)) select.value = existing;
-        state.detailId = select.value;
-        showDetail(listings.find((entry) => entry.id === select.value));
-    }
-
-    function showDetail(listing) {
-        const panel = document.getElementById("detail-panel");
-        panel.replaceChildren();
-        if (!listing) {
-            panel.append(empty("Chọn món đồ để xem thông tin và gửi yêu cầu."));
-            return;
-        }
-        const title = node("h2", "", listing.name);
-        const tags = node("div", "portal-tags");
-        tags.append(node("span", "portal-badge", listing.category), statusBadge(listing.status));
-        const description = node("p", "portal-muted", listing.description || "Chủ món đồ chưa thêm mô tả.");
-        const facts = node("p", "portal-muted",
-            `${listing.condition} · ${listing.method} · ${listing.location} · Đăng bởi ${listing.ownerName}`);
-        const form = document.createElement("form");
-        form.className = "portal-form";
-        form.dataset.form = "request";
-        const hidden = document.createElement("input");
-        hidden.type = "hidden";
-        hidden.name = "listingId";
-        hidden.value = listing.id;
-        const label = node("label", "", "Lời nhắn (không bắt buộc)");
-        label.htmlFor = "request-message";
-        const field = node("div", "portal-field portal-field-wide");
-        const message = document.createElement("textarea");
-        message.id = "request-message";
-        message.name = "message";
-        message.maxLength = 240;
-        message.placeholder = "Giới thiệu ngắn hoặc đề xuất trao đổi...";
-        const submit = node("button", "portal-action-button primary",
-            listing.method === "Cần sửa chữa" ? "Gửi yêu cầu sửa chữa" : "Gửi yêu cầu");
-        submit.type = "submit";
-        field.append(label, message);
-        const actionRow = node("div", "portal-field-wide");
-        actionRow.append(submit);
-        form.append(hidden, field, actionRow);
-        panel.append(title, tags, description, facts, form);
-    }
-
-    function renderMyRequests(requests) {
-        const host = document.getElementById("my-request-list");
-        const status = document.getElementById("request-status-filter").value;
-        const own = requests.filter((entry) =>
-            entry.requesterId === store.currentUser.id
-            && (status === "all" || entry.status === status)
-        );
-        host.replaceChildren();
-        if (!own.length) host.append(empty("Chưa có yêu cầu ở trạng thái này. Khám phá đồ để bắt đầu."));
-        own.forEach((request) => host.append(makeRequestCard(request, "receiver")));
-    }
-
-    function renderServices() {
-        const host = document.getElementById("service-list");
-        const services = store.getServices();
-        host.replaceChildren();
-        if (!services.length) host.append(empty("Chưa có dịch vụ. Thêm dịch vụ để cộng đồng tìm thấy điểm của bạn."));
-        services.forEach((service) => {
-            const actions = [
-                actionButton("Sửa", "edit-service", service.id),
-                actionButton(service.status === "active" ? "Tạm ngưng" : "Kích hoạt", "toggle-service", service.id),
-                actionButton("Lưu trữ", "archive-service", service.id, "danger")
-            ];
-            const info = node("div");
-            info.append(node("h3", "", service.name));
-            const tags = node("div", "portal-tags");
-            tags.append(node("span", "portal-badge", service.category), statusBadge(service.status, "service"));
-            info.append(tags, node("p", "portal-muted", service.description || "Chưa có mô tả."),
-                node("p", "portal-muted", service.location));
-            host.append(card(info, actions));
-        });
-    }
-
-    function renderIntake(requests) {
-        const host = document.getElementById("intake-list");
-        const incoming = requests.filter((entry) =>
-            entry.partnerId === store.currentUser.id && entry.method === "Cần sửa chữa"
-        );
-        host.replaceChildren();
-        if (!incoming.length) host.append(empty("Chưa có món đồ nào được gửi đến điểm sửa chữa."));
-        incoming.forEach((request) => host.append(makeRequestCard(request, "partner")));
-    }
-
-    function renderPartnerImpact(requests) {
-        const partnerRequests = requests.filter((entry) => entry.partnerId === store.currentUser.id);
-        const completed = partnerRequests.filter((entry) => entry.status === "completed");
-        const stats = document.getElementById("partner-stats");
-        stats.replaceChildren(
-            statBox("Tổng ca tiếp nhận", partnerRequests.length),
-            statBox("Đang chờ", partnerRequests.filter((entry) => entry.status === "pending").length),
-            statBox("Đang xử lý", partnerRequests.filter((entry) => entry.status === "in_progress").length),
-            statBox("Đã hoàn tất", completed.length)
-        );
-        const active = partnerRequests.filter((entry) => ["accepted", "in_progress"].includes(entry.status)).length;
-        const total = Math.max(1, partnerRequests.length);
-        const progress = document.getElementById("partner-progress");
-        progress.replaceChildren(node("p", "portal-muted", `${active} trên ${total} ca đang được xử lý hoặc đã tiếp nhận`));
-        const bar = node("div", "portal-progress");
-        const fill = node("span");
-        fill.style.width = `${Math.round((active / total) * 100)}%`;
-        bar.append(fill);
-        progress.append(bar);
-        const doneHost = document.getElementById("partner-completed");
-        doneHost.replaceChildren();
-        if (!completed.length) doneHost.append(empty("Chưa có ca hoàn tất để báo cáo tác động."));
-        completed.forEach((request) => doneHost.append(makeRequestCard(request, "report")));
-    }
-
-    function renderCategories() {
-        const host = document.getElementById("category-list");
-        const categories = store.getCategories();
-        host.replaceChildren();
-        if (!categories.length) host.append(empty("Chưa có danh mục."));
-        categories.forEach((category) => {
-            const info = node("div");
-            info.append(node("h3", "", category.name));
-            info.append(node("p", "portal-muted", category.description || "Danh mục dùng khi đăng món đồ."));
-            const actions = [
-                actionButton("Sửa tên", "edit-category", category.id),
-                actionButton(category.active === false ? "Hiện lại" : "Ẩn danh mục", "toggle-category", category.id)
-            ];
-            host.append(card(info, actions));
-        });
-    }
-
-    function renderModeration(listings) {
-        const host = document.getElementById("moderation-list");
-        const pending = listings.filter((entry) => entry.status === "pending");
-        host.replaceChildren();
-        if (!pending.length) host.append(empty("Hàng đợi kiểm duyệt đang trống."));
-        pending.forEach((listing) => {
-            const item = makeListingCard(listing, true);
-            const actions = node("div", "portal-card-actions");
-            actions.append(actionButton("Duyệt tin", "approve-listing", listing.id, "primary"));
-            actions.append(actionButton("Từ chối", "reject-listing", listing.id, "danger"));
-            item.append(actions);
-            host.append(item);
-        });
-    }
-
-    function renderReport(listings, requests) {
-        const counts = (entries, status) => entries.filter((entry) => entry.status === status).length;
-        const stats = document.getElementById("report-stats");
-        stats.replaceChildren(
-            statBox("Tổng tin đăng", listings.length),
-            statBox("Đang chờ duyệt", counts(listings, "pending")),
-            statBox("Tin đang chia sẻ", counts(listings, "active") + counts(listings, "repair")),
-            statBox("Yêu cầu hoàn tất", counts(requests, "completed"))
-        );
-        renderBars(document.getElementById("report-listings"), [
-            ["Chờ duyệt", counts(listings, "pending")],
-            ["Đang chia sẻ", counts(listings, "active")],
-            ["Cần sửa", counts(listings, "repair")],
-            ["Bị từ chối", counts(listings, "rejected")],
-            ["Đã lưu trữ", counts(listings, "archived")],
-            ["Đã trao/hoàn tất", counts(listings, "donated") + counts(listings, "completed")]
-        ]);
-        renderBars(document.getElementById("report-requests"), [
-            ["Đang chờ", counts(requests, "pending")],
-            ["Đã chấp nhận", counts(requests, "accepted")],
-            ["Đang xử lý", counts(requests, "in_progress")],
-            ["Hoàn tất", counts(requests, "completed")],
-            ["Bị từ chối/đã hủy", counts(requests, "rejected") + counts(requests, "cancelled")]
-        ]);
-        const categoryCounts = new Map();
-        listings.forEach((entry) => categoryCounts.set(entry.category, (categoryCounts.get(entry.category) || 0) + 1));
-        renderBars(document.getElementById("report-categories"), [...categoryCounts.entries()]);
-    }
-
-    function renderBars(host, entries) {
-        host.replaceChildren();
-        if (!entries.length || entries.every((entry) => entry[1] === 0)) {
-            host.append(empty("Chưa có dữ liệu để tổng hợp."));
-            return;
-        }
-        const max = Math.max(1, ...entries.map((entry) => entry[1]));
-        entries.forEach(([label, count]) => {
-            const row = node("div", "portal-report-row");
-            const text = node("div", "portal-report-label");
-            text.append(node("span", "", label), node("strong", "", String(count)));
-            const bar = node("div", "portal-progress");
-            const fill = node("span");
-            fill.style.width = `${Math.round((count / max) * 100)}%`;
-            bar.append(fill);
-            row.append(text, bar);
-            host.append(row);
-        });
-    }
-
-    function handleBrowseChange(event) {
-        if (pageId === "receiver-item-browse"
-            && ["browse-search", "browse-category", "browse-method"].includes(event.target.id)) {
-            renderBrowse(store.getListings());
-        }
-        if (pageId === "receiver-item-detail" && event.target.id === "detail-item-select") {
-            state.detailId = event.target.value;
-            showDetail(store.getListings().find((entry) => entry.id === state.detailId));
-        }
-        if (pageId === "receiver-my-requests" && event.target.id === "request-status-filter") {
-            renderMyRequests(store.getRequests());
-        }
+    function viewContext() {
+        return {
+            store,
+            state,
+            node,
+            actionButton,
+            statusBadge,
+            card,
+            makeListingCard,
+            makeRequestCard,
+            empty,
+            statBox,
+            normalize
+        };
     }
 
     async function handleClick(event) {
@@ -729,7 +418,7 @@
             const saved = store.saveCategories(categories);
             showToast(saved ? "Đã cập nhật danh mục." : "Không thể lưu danh mục.", !saved);
             populateCategorySelects();
-            renderCategories();
+            renderScreen();
         } else if (action === "edit-category") {
             const categories = store.getCategories();
             const category = categories.find((entry) => entry.id === id);
@@ -750,7 +439,7 @@
             const saved = store.saveCategories(categories);
             showToast(saved ? "Đã đổi tên danh mục." : "Không thể lưu danh mục.", !saved);
             populateCategorySelects();
-            renderCategories();
+            renderScreen();
         } else if (action === "ai-accept") {
             if (pageId === "owner-item-create") {
                 document.getElementById("item-description").value = state.aiDescription;
@@ -821,7 +510,7 @@
         }
         const saved = store.saveServices(services);
         showToast(saved ? "Đã cập nhật dịch vụ." : "Không thể lưu dịch vụ.", !saved);
-        renderServices();
+        renderScreen();
     }
 
     async function generateDescription(button) {
@@ -1040,7 +729,7 @@
         if (form.dataset.form === "request") {
             const result = store.createRequest(data.get("listingId"), data.get("message"));
             showToast(result.ok ? "Đã gửi yêu cầu. Bạn có thể theo dõi trạng thái." : result.reason, !result.ok);
-            if (result.ok) renderDetail(store.getListings());
+            if (result.ok) roleViews.renderDetail(viewContext(), store.getListings());
             return;
         }
         if (form.dataset.form === "edit-listing") {
@@ -1070,7 +759,7 @@
             const saved = store.saveServices(services);
             showToast(saved ? "Đã thêm dịch vụ." : "Không thể lưu dịch vụ.", !saved);
             if (saved) form.reset();
-            renderServices();
+            renderScreen();
             return;
         }
         if (form.dataset.form === "category") {
@@ -1093,7 +782,7 @@
             const saved = store.saveCategories(categories);
             showToast(saved ? "Đã thêm danh mục." : "Không thể lưu danh mục.", !saved);
             if (saved) form.reset();
-            renderCategories();
+            renderScreen();
         }
     }
 

@@ -5,10 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Yêu cầu của tôi — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="receiver-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="receiver-my-requests"><div id="portal-root"></div></body>
+<body data-page="receiver-my-requests">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <div class="portal-field">
+                    <label for="request-status-filter">Lọc trạng thái</label>
+                    <select id="request-status-filter" class="portal-control">
+                        <option value="all">Tất cả yêu cầu</option>
+                        <option value="pending">Đang chờ</option>
+                        <option value="accepted">Đã chấp nhận</option>
+                        <option value="rejected">Bị từ chối</option>
+                        <option value="cancelled">Đã hủy</option>
+                        <option value="in_progress">Đang xử lý</option>
+                        <option value="completed">Hoàn tất</option>
+                    </select>
+                </div>
+                <div id="my-request-list" class="portal-list"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

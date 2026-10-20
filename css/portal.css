@@ -1,3 +1,60 @@
+:root {
+    color-scheme: light;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background: #f7f9f6;
+    color: #202a24;
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #245c45;
+    font-size: 21px;
+    font-weight: 750;
+    letter-spacing: -0.6px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.brand-mark {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #e8f2eb;
+    color: #245c45;
+    font-size: 26px;
+    line-height: 1;
+}
+
+.eyebrow {
+    margin: 0 0 9px;
+    color: #8a958d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.25px;
+}
+
 .portal-body {
     min-height: 100vh;
     background: #f7f9f6;

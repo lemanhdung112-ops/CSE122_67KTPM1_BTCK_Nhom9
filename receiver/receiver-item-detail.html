@@ -5,10 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Chi tiết món đồ — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="receiver-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="receiver-item-detail"><div id="portal-root"></div></body>
+<body data-page="receiver-item-detail">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <div class="portal-field">
+                    <label for="detail-item-select">Chọn món đồ</label>
+                    <select id="detail-item-select" class="portal-control"></select>
+                </div>
+                <div id="detail-panel"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

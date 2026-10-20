@@ -5,10 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Đồ của tôi — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="owner-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="owner-my-items"><div id="portal-root"></div></body>
+<body data-page="owner-my-items">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-stats" id="owner-stats"></section>
+            <section class="portal-section">
+                <h2>Tin của tôi</h2>
+                <div id="owner-listings" class="portal-list"></div>
+            </section>
+            <section class="portal-section">
+                <h2>Yêu cầu gửi đến</h2>
+                <p class="portal-help">Khi chấp nhận một yêu cầu, các yêu cầu đang chờ khác cho cùng món sẽ bị từ chối.</p>
+                <div id="owner-requests" class="portal-list"></div>
+            </section>
+            <dialog id="edit-listing-dialog" class="portal-dialog">
+                <form id="edit-listing-form" class="portal-form" data-form="edit-listing">
+                    <h2 class="portal-field-wide">Sửa tin đăng</h2>
+                    <input type="hidden" name="id">
+                    <div class="portal-field portal-field-wide">
+                        <label for="edit-name">Tên món đồ</label>
+                        <input id="edit-name" name="name" required maxlength="70">
+                    </div>
+                    <div class="portal-field portal-field-wide">
+                        <label for="edit-description">Mô tả</label>
+                        <textarea id="edit-description" name="description" maxlength="300" required></textarea>
+                    </div>
+                    <div class="portal-field-wide portal-actions">
+                        <button class="portal-action-button primary" type="submit">Lưu thay đổi</button>
+                        <button class="portal-action-button" type="button" data-action="close-dialog">Đóng</button>
+                    </div>
+                </form>
+            </dialog>
+        </div>
+    </div>
+</body>
 </html>

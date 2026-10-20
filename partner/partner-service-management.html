@@ -5,10 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Quản lý dịch vụ — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="partner-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="partner-service-management"><div id="portal-root"></div></body>
+<body data-page="partner-service-management">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <h2>Thêm dịch vụ</h2>
+                <form id="service-form" class="portal-form" data-form="service">
+                    <div class="portal-field">
+                        <label for="service-name">Tên dịch vụ *</label>
+                        <input id="service-name" name="name" required maxlength="70">
+                    </div>
+                    <div class="portal-field">
+                        <label for="service-category">Danh mục</label>
+                        <select id="service-category"></select>
+                    </div>
+                    <div class="portal-field">
+                        <label for="service-location">Địa điểm *</label>
+                        <input id="service-location" name="location" required maxlength="100">
+                    </div>
+                    <div class="portal-field">
+                        <label for="service-description">Mô tả</label>
+                        <input id="service-description" name="description" maxlength="180">
+                    </div>
+                    <div class="portal-field-wide">
+                        <button class="portal-action-button primary" type="submit">Thêm dịch vụ</button>
+                    </div>
+                </form>
+            </section>
+            <section class="portal-section">
+                <h2>Dịch vụ đang quản lý</h2>
+                <div id="service-list" class="portal-list"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

@@ -5,10 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Bảng tác động — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="partner-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="partner-impact-dashboard"><div id="portal-root"></div></body>
+<body data-page="partner-impact-dashboard">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-stats" id="partner-stats"></section>
+            <section class="portal-section">
+                <h2>Tiến độ tiếp nhận</h2>
+                <div id="partner-progress"></div>
+            </section>
+            <section class="portal-section">
+                <h2>Ca đã xử lý gần đây</h2>
+                <div id="partner-completed" class="portal-list"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

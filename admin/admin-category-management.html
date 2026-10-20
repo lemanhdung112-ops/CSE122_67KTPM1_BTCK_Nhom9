@@ -5,10 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Quản lý danh mục — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="admin-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="admin-category-management"><div id="portal-root"></div></body>
+<body data-page="admin-category-management">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <h2>Thêm danh mục</h2>
+                <form id="category-form" class="portal-form" data-form="category">
+                    <div class="portal-field">
+                        <label for="category-name">Tên danh mục *</label>
+                        <input id="category-name" name="name" required maxlength="40" placeholder="Ví dụ: Đồ học tập">
+                    </div>
+                    <div class="portal-field">
+                        <label for="category-description">Ghi chú</label>
+                        <input id="category-description" name="description" maxlength="100">
+                    </div>
+                    <div class="portal-field-wide">
+                        <button class="portal-action-button primary" type="submit">Thêm danh mục</button>
+                    </div>
+                </form>
+            </section>
+            <section class="portal-section">
+                <h2>Danh mục hiện có</h2>
+                <div id="category-list" class="portal-list"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>

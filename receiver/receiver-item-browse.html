@@ -5,10 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#f7f9f6">
     <title>Khám phá đồ — ReUseHub</title>
-    <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/portal.css">
     <script src="../js/reusehub-store.js" defer></script>
+    <script src="receiver-screens.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
-<body data-page="receiver-item-browse"><div id="portal-root"></div></body>
+<body data-page="receiver-item-browse">
+    <div id="portal-root">
+        <div id="portal-content">
+            <section class="portal-section">
+                <div class="portal-toolbar">
+                    <input id="browse-search" class="portal-control" type="search" placeholder="Tìm tên, mô tả, người đăng">
+                    <select id="browse-category" class="portal-control"></select>
+                    <select id="browse-method" class="portal-control">
+                        <option value="all">Mọi phương án</option>
+                        <option>Cho tặng</option>
+                        <option>Trao đổi</option>
+                        <option>Cần sửa chữa</option>
+                    </select>
+                </div>
+                <div class="portal-actions">
+                    <button class="portal-action-button primary" type="button" data-action="ai-match">Gợi ý món phù hợp</button>
+                    <span id="browse-count" class="portal-help" aria-live="polite"></span>
+                </div>
+                <div id="ai-match-result" aria-live="polite"></div>
+                <div id="browse-list" class="portal-list"></div>
+            </section>
+        </div>
+    </div>
+</body>
 </html>
