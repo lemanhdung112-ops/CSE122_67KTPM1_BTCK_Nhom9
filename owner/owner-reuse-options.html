@@ -6,9 +6,82 @@
     <meta name="theme-color" content="#f7f9f6">
     <title>Phương án xử lý — ReUseHub</title>
     <link rel="stylesheet" href="../css/portal.css">
-    <link rel="stylesheet" href="owner.css">
+    <style>
+body[data-page^="owner-"] {
+    --role-accent: #245c45;
+    --role-accent-soft: #edf4ee;
+}
+
+body[data-page^="owner-"] .portal-page-heading {
+    border-color: #dfe9e0;
+    background:
+        radial-gradient(ellipse at 92% 10%, #c7dfca, transparent 40%),
+        linear-gradient(120deg, #edf5ee, #f8fbf7 72%);
+}
+
+body[data-page^="owner-"] .portal-nav-link.active,
+body[data-page^="owner-"] .portal-nav-link:hover {
+    background: var(--role-accent-soft);
+    color: var(--role-accent);
+}
+
+body[data-page^="owner-"] .portal-action-button.primary {
+    border-color: var(--role-accent);
+    background: var(--role-accent);
+}
+
+body[data-page^="owner-"] .portal-stat strong {
+    color: var(--role-accent);
+}
+
+    </style>
     <script src="../js/reusehub-store.js" defer></script>
-    <script src="owner-screens.js" defer></script>
+    <script>
+(function () {
+    window.ReUseHubRoleViews = window.ReUseHubRoleViews || {};
+    window.ReUseHubRoleViews.owner = {
+        renderItems(context, listings, requests) {
+            const { store, node, actionButton, makeListingCard, makeRequestCard, empty, statBox } = context;
+            const user = store.currentUser;
+            const ownListings = listings.filter((entry) => entry.ownerId === user.id);
+            const active = ownListings.filter((entry) => ["active", "repair", "reserved"].includes(entry.status)).length;
+            const pending = requests.filter((entry) => entry.ownerId === user.id && entry.status === "pending").length;
+            const stats = document.getElementById("owner-stats");
+            stats.replaceChildren(
+                statBox("Tin đang hoạt động", active),
+                statBox("Chờ kiểm duyệt", ownListings.filter((entry) => entry.status === "pending").length),
+                statBox("Yêu cầu chờ xử lý", pending),
+                statBox("Đã hoàn tất", ownListings.filter((entry) => ["donated", "completed"].includes(entry.status)).length)
+            );
+
+            const listingHost = document.getElementById("owner-listings");
+            listingHost.replaceChildren();
+            if (!ownListings.length) listingHost.append(empty("Bạn chưa có món đồ nào. Hãy đăng món đầu tiên."));
+            ownListings.forEach((listing) => {
+                const actions = [];
+                if (listing.status !== "archived" && listing.status !== "donated") {
+                    actions.push(actionButton("Sửa", "edit-listing", listing.id));
+                    actions.push(actionButton("Lưu trữ", "archive-listing", listing.id, "danger"));
+                }
+                const listingCard = makeListingCard(listing);
+                const actionArea = node("div", "portal-card-actions");
+                actionArea.append(...actions);
+                listingCard.append(actionArea);
+                listingHost.append(listingCard);
+            });
+
+            const requestHost = document.getElementById("owner-requests");
+            requestHost.replaceChildren();
+            const incoming = requests.filter((entry) =>
+                entry.ownerId === user.id && entry.method !== "Cần sửa chữa"
+            );
+            if (!incoming.length) requestHost.append(empty("Chưa có yêu cầu nhận đồ gửi đến."));
+            incoming.forEach((request) => requestHost.append(makeRequestCard(request, "owner")));
+        }
+    };
+})();
+
+    </script>
     <script src="../js/portal.js" defer></script>
 </head>
 <body data-page="owner-reuse-options">
