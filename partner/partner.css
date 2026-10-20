@@ -1,0 +1,30 @@
+body[data-page^="partner-"] {
+    --role-accent: #a65336;
+    --role-accent-soft: #fcebe6;
+}
+
+body[data-page^="partner-"] .portal-page-heading {
+    border-color: #eedbd3;
+    background:
+        radial-gradient(ellipse at 92% 10%, #f2d8ce, transparent 40%),
+        linear-gradient(120deg, #fbf0eb, #fdf9f7 72%);
+}
+
+body[data-page^="partner-"] .portal-nav-link.active,
+body[data-page^="partner-"] .portal-nav-link:hover {
+    background: var(--role-accent-soft);
+    color: var(--role-accent);
+}
+
+body[data-page^="partner-"] .portal-action-button.primary {
+    border-color: var(--role-accent);
+    background: var(--role-accent);
+}
+
+body[data-page^="partner-"] .portal-stat strong {
+    color: var(--role-accent);
+}
+
+body[data-page^="partner-"] .portal-progress span {
+    background-color: var(--role-accent);
+}

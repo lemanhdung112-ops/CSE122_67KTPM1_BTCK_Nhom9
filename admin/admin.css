@@ -1,0 +1,26 @@
+body[data-page^="admin-"] {
+    --role-accent: #425a8b;
+    --role-accent-soft: #edf1f8;
+}
+
+body[data-page^="admin-"] .portal-page-heading {
+    border-color: #d9e0ed;
+    background:
+        radial-gradient(ellipse at 92% 10%, #dce4f2, transparent 40%),
+        linear-gradient(120deg, #edf1f8, #f8f9fc 72%);
+}
+
+body[data-page^="admin-"] .portal-nav-link.active,
+body[data-page^="admin-"] .portal-nav-link:hover {
+    background: var(--role-accent-soft);
+    color: var(--role-accent);
+}
+
+body[data-page^="admin-"] .portal-action-button.primary {
+    border-color: var(--role-accent);
+    background: var(--role-accent);
+}
+
+body[data-page^="admin-"] .portal-stat strong {
+    color: var(--role-accent);
+}

@@ -1,0 +1,26 @@
+body[data-page^="owner-"] {
+    --role-accent: #245c45;
+    --role-accent-soft: #edf4ee;
+}
+
+body[data-page^="owner-"] .portal-page-heading {
+    border-color: #dfe9e0;
+    background:
+        radial-gradient(ellipse at 92% 10%, #c7dfca, transparent 40%),
+        linear-gradient(120deg, #edf5ee, #f8fbf7 72%);
+}
+
+body[data-page^="owner-"] .portal-nav-link.active,
+body[data-page^="owner-"] .portal-nav-link:hover {
+    background: var(--role-accent-soft);
+    color: var(--role-accent);
+}
+
+body[data-page^="owner-"] .portal-action-button.primary {
+    border-color: var(--role-accent);
+    background: var(--role-accent);
+}
+
+body[data-page^="owner-"] .portal-stat strong {
+    color: var(--role-accent);
+}
