@@ -39,6 +39,7 @@ body[data-page^="receiver-"] .portal-control:focus {
 }
 
     </style>
+    <script src="../js/reusehub-seed-data.js" defer></script>
     <script src="../js/reusehub-store.js" defer></script>
     <script>
 (function () {
@@ -102,6 +103,13 @@ body[data-page^="receiver-"] .portal-control:focus {
                 panel.append(empty("Chọn món đồ để xem thông tin và gửi yêu cầu."));
                 return;
             }
+            if (listing.image) {
+                const image = node("img", "portal-detail-image");
+                image.src = listing.image;
+                image.alt = listing.name;
+                image.addEventListener("error", () => image.remove(), { once: true });
+                panel.append(image);
+            }
             const title = node("h2", "", listing.name);
             const tags = node("div", "portal-tags");
             tags.append(node("span", "portal-badge", listing.category), statusBadge(listing.status));
@@ -163,6 +171,9 @@ body[data-page^="receiver-"] .portal-control:focus {
 })();
 
     </script>
+    <script src="../js/portal-ui.js" defer></script>
+    <script src="../js/portal-ai.js" defer></script>
+    <script src="../js/portal-actions.js" defer></script>
     <script src="../js/portal.js" defer></script>
 </head>
 <body data-page="receiver-item-detail">

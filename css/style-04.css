@@ -1,0 +1,274 @@
+.back-link:hover {
+    color: var(--color-forest);
+}
+
+.back-link span {
+    font-size: 19px;
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    align-items: start;
+    gap: 25px;
+}
+
+.detail-art {
+    min-height: 410px;
+    position: sticky;
+    top: 100px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: 18px;
+    background: #eef4ef;
+    font-size: clamp(90px, 15vw, 160px);
+}
+
+.detail-art.has-image {
+    overflow: hidden;
+}
+
+.detail-art.has-image img {
+    width: 100%;
+    height: 100%;
+    min-height: 410px;
+    display: block;
+    object-fit: contain;
+    padding: 18px;
+}
+
+.detail-art[data-category="Điện tử"] {
+    background: #eff3f5;
+}
+
+.detail-art[data-category="Đồ gia dụng"] {
+    background: #f7f1e9;
+}
+
+.detail-art[data-category="Khác"] {
+    background: #f4f0f6;
+}
+
+.detail-panel {
+    padding: 27px;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: var(--shadow-card);
+}
+
+.detail-tags {
+    margin: 12px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.detail-title {
+    margin: 12px 0 4px;
+    color: #26382c;
+    font-size: clamp(26px, 4vw, 34px);
+    letter-spacing: -0.8px;
+    line-height: 1.2;
+}
+
+.detail-owner {
+    margin: 8px 0 24px;
+    color: #829087;
+    font-size: 12px;
+}
+
+.detail-subheading {
+    margin: 0 0 7px;
+    color: #34443a;
+    font-size: 15px;
+}
+
+.detail-description {
+    margin: 0;
+    color: #69776e;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.detail-facts {
+    margin: 20px 0;
+    padding: 15px 0;
+    display: grid;
+    grid-template-columns: 105px minmax(0, 1fr);
+    gap: 12px 10px;
+    border-top: 1px solid #edf0ed;
+    border-bottom: 1px solid #edf0ed;
+    font-size: 12px;
+}
+
+.detail-facts dt {
+    color: #89938c;
+}
+
+.detail-facts dd {
+    margin: 0;
+    color: #45554a;
+    font-weight: 600;
+}
+
+.request-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.request-form label {
+    margin-bottom: 7px;
+    color: #46534a;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.request-form textarea {
+    width: 100%;
+    padding: 11px 12px;
+    resize: vertical;
+    border: 1px solid #dfe6df;
+    border-radius: 9px;
+    color: var(--color-ink);
+    font: inherit;
+    font-size: 13px;
+}
+
+.request-form .button {
+    width: 100%;
+}
+
+.request-form .button:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
+.request-note {
+    margin: 12px 0 0;
+    color: #919a93;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.request-tabs {
+    margin-bottom: 17px;
+    display: flex;
+    gap: 7px;
+    overflow-x: auto;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.request-tab {
+    padding: 11px 13px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    color: #79847c;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.request-tab:hover,
+
+.request-tab.active {
+    border-bottom-color: var(--color-forest);
+    color: var(--color-forest);
+    font-weight: 650;
+}
+
+.requests-list {
+    display: grid;
+    gap: 11px;
+}
+
+.request-card {
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border: 1px solid var(--color-border);
+    border-radius: 13px;
+    background: #fff;
+    box-shadow: var(--shadow-card);
+}
+
+.request-card-main {
+    min-width: 0;
+}
+
+.request-card-main h2 {
+    margin: 0;
+    color: #304036;
+    font-size: 16px;
+}
+
+.request-subline,
+
+.request-message,
+
+.request-date {
+    margin: 6px 0 0;
+    color: #77827b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.request-date {
+    color: #9aa39c;
+    font-size: 11px;
+}
+
+.request-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 9px;
+}
+
+.status-accepted {
+    background: #e7f4ea;
+    color: #327144;
+}
+
+.status-rejected,
+
+.status-cancelled {
+    background: #f1f2f1;
+    color: #68736b;
+}
+
+.cancel-request {
+    min-height: 34px;
+    padding: 0 10px;
+    color: #8a5750;
+    font-size: 11px;
+}
+
+.cancel-request:hover {
+    border-color: #e6ccc7;
+    background: #fcf4f2;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+:focus-visible {
+    outline: 3px solid rgba(65, 121, 82, 0.3);
+    outline-offset: 3px;
+}

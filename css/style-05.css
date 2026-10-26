@@ -1,0 +1,294 @@
+@media (max-width: 760px) {
+    .site-header {
+        min-height: 65px;
+        padding: 0 20px;
+        gap: 14px;
+    }
+    .brand {
+        font-size: 19px;
+    }
+    .menu-toggle {
+        width: 38px;
+        height: 38px;
+        margin-left: auto;
+        padding: 9px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+    }
+    .menu-toggle:hover {
+        background: #f0f4f0;
+    }
+    .menu-toggle span {
+        width: 19px;
+        height: 2px;
+        border-radius: 2px;
+        background: #415649;
+    }
+    .primary-navigation {
+        position: absolute;
+        top: calc(100% - 1px);
+        right: 12px;
+        left: 12px;
+        padding: 8px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 3px;
+        border: 1px solid var(--color-border);
+        border-radius: 0 0 13px 13px;
+        background: #fff;
+        box-shadow: 0 12px 20px rgba(37, 67, 48, 0.1);
+    }
+    .primary-navigation.is-open {
+        display: flex;
+    }
+    .navigation-link {
+        padding: 12px;
+    }
+    .avatar-button {
+        width: 35px;
+        height: 35px;
+        margin-left: 0;
+    }
+    .page-content {
+        width: min(100% - 36px, 600px);
+        padding: 35px 0 40px;
+    }
+    .marketplace-hero {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 24px;
+    }
+    .browse-tools {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .browse-tools .search-box {
+        grid-column: 1 / -1;
+    }
+    .browse-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+    .detail-art {
+        min-height: 260px;
+        position: static;
+        font-size: 110px;
+    }
+    .welcome-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 17px;
+    }
+    .welcome-row h1 {
+        font-size: clamp(29px, 7vw, 38px);
+        letter-spacing: -1.2px;
+    }
+    .welcome-description {
+        margin-top: 8px;
+        font-size: 14px;
+    }
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .stat-card {
+        min-height: 98px;
+        padding: 15px 17px;
+    }
+}
+
+@media (max-width: 760px) {
+    .stat-icon {
+        width: 42px;
+        height: 42px;
+    }
+    .stat-value {
+        font-size: 25px;
+    }
+    .stat-note {
+        grid-column: 2;
+        margin-top: 4px;
+    }
+    .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 11px;
+    }
+    .product-art {
+        height: 112px;
+        font-size: 45px;
+    }
+    .product-info {
+        padding: 12px;
+    }
+    .product-info h3 {
+        font-size: 14px;
+    }
+    .product-description {
+        font-size: 11px;
+    }
+    .product-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .impact-panel {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        padding: 18px;
+        gap: 12px;
+    }
+    .impact-symbol {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+    .impact-copy {
+        flex-basis: calc(100% - 58px);
+    }
+    .impact-copy h2 {
+        font-size: 15px;
+    }
+    .impact-total {
+        width: 100%;
+        max-width: none;
+        margin-left: 54px;
+        padding: 10px 0 0;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 8px;
+        border-top: 1px solid #d5e3d7;
+        border-left: 0;
+    }
+    .impact-total span:first-child {
+        font-size: 19px;
+    }
+    .site-footer {
+        padding: 17px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-content {
+        width: calc(100% - 28px);
+    }
+    .marketplace-hero {
+        padding: 21px 18px;
+    }
+    .marketplace-hero h1 {
+        font-size: 29px;
+    }
+    .browse-tools {
+        grid-template-columns: 1fr;
+    }
+    .browse-tools .search-box {
+        grid-column: auto;
+    }
+    .browse-grid {
+        grid-template-columns: 1fr;
+    }
+    .marketplace-card {
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+    }
+    .marketplace-art {
+        height: 100%;
+        min-height: 210px;
+        font-size: 44px;
+    }
+    .marketplace-card .product-info {
+        min-width: 0;
+    }
+    .marketplace-card .product-meta {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .marketplace-card-title {
+        font-size: 14px;
+    }
+    .marketplace-card .product-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .marketplace-card .card-action {
+        padding: 0 8px;
+        font-size: 11px;
+    }
+    .detail-panel {
+        padding: 20px;
+    }
+    .request-card {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .request-card-actions {
+        width: 100%;
+        align-items: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .filter-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+    .category-select {
+        min-height: 42px;
+    }
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+    .product-card {
+        display: grid;
+        grid-template-columns: 112px minmax(0, 1fr);
+    }
+    .product-art {
+        height: 100%;
+        min-height: 150px;
+        font-size: 42px;
+    }
+    .product-info {
+        padding: 12px;
+    }
+    .product-footer {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .section-heading {
+        align-items: flex-start;
+    }
+    .section-heading h2 {
+        font-size: 21px;
+    }
+    .text-button {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .site-footer {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+    .listing-form {
+        padding: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}
