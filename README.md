@@ -91,6 +91,6 @@ Các trang trong `admin/`, `owner/`, `partner/` và `receiver/` dùng `portal.cs
 
 Repository không có `index.html` ở thư mục gốc; trang bắt đầu nằm tại `html/index.html`. Nếu bật GitHub Pages từ nhánh `main` và thư mục `/(root)`, mở trang tại đường dẫn `/html/` của website Pages, không phải đường dẫn gốc. Ví dụ URL sau khi triển khai:
 
-`https://lemanhdung112-ops.github.io/btl/html/`
+`https://github.com/lemanhdung112-ops/CSE122_67KTPM1_BTCK_Nhom9`
 
 Thiết lập tại **Repository → Settings → Pages → Build and deployment**: chọn **Deploy from a branch**, branch **`main`**, folder **`/(root)`**. URL trên chỉ hoạt động sau khi Pages được bật và triển khai thành công.
